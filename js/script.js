@@ -1,4 +1,4 @@
-// DOM Elements
+// DOM Elements starts
 const inputElement = document.getElementById('input')
 const buttonSubmit = document.getElementById('submit')
 const toDoTask_countElement = document.getElementById('to-do__task-count')
@@ -8,12 +8,18 @@ const toDoList = document.getElementById('to-do__list')
 const inProgressList = document.getElementById('in-progress__list')
 const closedList = document.getElementById('closed__list')
 
-// Note arrays
+// DOM Elements ends
+
+
+// Note arrays starts
 const toDoNotes = ['Сделать домашку']
 const inProgressNotes = ['Доделать проект']
 const closedNotes = ['Погулять с друзьями']
 
-// Functions
+// Note arrays ends
+
+
+// Functions starts
 buttonSubmit.onclick = () => {
     if(inputElement.value.length > 0){
         toDoNotes.push(inputElement.value)
@@ -22,6 +28,7 @@ buttonSubmit.onclick = () => {
     }
 }
 
+// Creating notes functions starts
 const makeANote = (note, index, notesList) => {
     notesList.insertAdjacentHTML('afterbegin', `<li class="list__element">
     <span class="list__text">${note}</span>
@@ -31,9 +38,9 @@ const makeANote = (note, index, notesList) => {
 </li>`)
 }
 
-const updateList = (notes, notesList, countElement) => {
+const updateList = (notesArray, notesList, countElement) => {
     notesList.innerHTML = ''
-    countElement.textContent = notes.length
+    countElement.textContent = notesArray.length
 }
 
 const render = () => {
@@ -51,28 +58,22 @@ const render = () => {
     }
 }
 
-toDoList.onclick = (event) => {
+// Creating notes functions ends
+
+// Deleting notes functions starts
+const deleteANote = (event, notesArray) => {
     if(event.target.className !== "list__button__delete") return
     else{
-        toDoNotes.splice(event.target.dataset.index, 1)
+        notesArray.splice(event.target.dataset.index, 1)
         render()
     }
 }
 
-inProgressList.onclick = (event) => {
-    if(event.target.className !== "list__button__delete") return
-    else{
-        inProgressNotes.splice(event.target.dataset.index, 1)
-        render()
-    }
-}
+toDoList.onclick = (event) => deleteANote(event, toDoNotes)
+inProgressList.onclick = (event) => deleteANote(event, inProgressNotes)
+closedList.onclick = (event) => deleteANote(event, closedNotes) 
 
-closedList.onclick = (event) => {
-    if(event.target.className !== "list__button__delete") return
-    else{
-        closedNotes.splice(event.target.dataset.index, 1)
-        render()
-    }
-}
+// Deleting notes function ends
+// Functions ends
 
 render()
