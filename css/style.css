@@ -251,6 +251,8 @@ dl, dd {
 }
 
 
+/* Styles starts */
+
 body{
     display: flex;
     background-color: #f2f5fa;
@@ -274,6 +276,8 @@ body{
     margin-top: 3%;
     font-size: 55px;
 }
+
+/* Header styles starts */
 
 .header{
     display: flex;
@@ -309,6 +313,12 @@ body{
 .submit:active, .list__button__delete:active{
     opacity: 70%;
 }
+
+/* Header styles ends */
+
+
+
+/* Main styles starts */
 
 .main{
     display: flex;
@@ -373,6 +383,8 @@ body{
     border-radius: 1000px;
 }
 
+/* List styles starts */
+
 .main__to-do__list, .main__in-progress__list, .main__closed__list{
     display: flex;
     flex-direction: column;
@@ -413,3 +425,6 @@ body{
     border: #708090 solid 1px;
     border-radius: 1000px;
 }
+
+/* List styles ends */
+/* Main styles ends */
