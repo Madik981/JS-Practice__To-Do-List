@@ -250,6 +250,7 @@ dl, dd {
     margin: 0;
     margin-block-start: 0;
     margin-block-end: 0;
+    padding-inline-start: 0;
 }
 
 
@@ -268,8 +269,8 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    max-width: 60vw;
-    width: 60vw;
+    max-width: 70vw;
+    width: 70vw;
 }
 
 .main-text{
@@ -308,7 +309,7 @@ body{
     font-size: 17px;
 }
 
-.submit:active{
+.submit:active, .list__button__delete:active{
     opacity: 70%;
 }
 
@@ -372,5 +373,44 @@ body{
     font-weight: 400;
     width: 7.3%;
     height: 50%;
+    border-radius: 1000px;
+}
+
+.main__to-do__list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.list__element{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12%;
+    height: 40px;
+    background-color: #fefefe;
+    border: #708090 solid 1px;
+    border-radius: 6px;
+}
+
+.list__text{
+    margin-left: 4%;
+    font-weight: 500;
+}
+
+.list__buttons{
+    margin-right: 1%;
+    position: relative;
+    top: 10px;
+}
+
+.list__button__delete{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15px;
+    height: 15px;
+    border: #708090 solid 1px;
     border-radius: 1000px;
 }
