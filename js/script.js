@@ -12,9 +12,9 @@ const closedList = document.getElementById('closed__list')
 
 
 // Note arrays starts
-const toDo_Notes = ['Сделать домашку']
-const inProgress_Notes = ['Доделать проект']
-const closed_Notes = ['Погулять с друзьями']
+const toDo_Notes = []
+const inProgress_Notes = []
+const closed_Notes = []
 
 // Note arrays ends
 
