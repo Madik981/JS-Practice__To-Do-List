@@ -12,30 +12,90 @@ const closedList = document.getElementById('closed__list')
 
 
 // Note arrays starts
-const toDoNotes = ['Сделать домашку']
-const inProgressNotes = ['Доделать проект']
-const closedNotes = ['Погулять с друзьями']
+const toDo_Notes = ['Сделать домашку']
+const inProgress_Notes = ['Доделать проект']
+const closed_Notes = ['Погулять с друзьями']
 
 // Note arrays ends
 
 
 // Functions starts
-buttonSubmit.onclick = () => {
+
+// Submit a note functions starts
+const submitANote = () => {
     if(inputElement.value.length > 0){
-        toDoNotes.push(inputElement.value)
+        toDo_Notes.push(inputElement.value)
         inputElement.value = ''
         render()
     }
 }
 
+buttonSubmit.onclick = () => submitANote()
+
+inputElement.addEventListener('keydown', (event) => {
+    if(event.key === 'Enter'){
+        submitANote()
+    }
+})
+
+// Submit a note functions ends
+
+
+// Drag notes functions starts
+const canDragNote = (event) => {
+    event.preventDefault()
+}
+toDoList.ondragover = (event) => canDragNote(event)
+inProgressList.ondragover = (event) => canDragNote(event)
+closedList.ondragover = (event) => canDragNote(event)
+
+const deleteADraggedNote = (notesArray, selectedNoteTitle) => {
+    const index = notesArray.indexOf(selectedNoteTitle)
+    notesArray.splice(index, 1)
+}
+
+const dropANote = (notesArray, selectedNoteTitle, listName) => {
+    notesArray.push(selectedNoteTitle)
+    switch(listName){
+        case 'todo':
+            deleteADraggedNote(toDo_Notes, selectedNoteTitle)
+            break
+        case 'inprog':
+            deleteADraggedNote(inProgress_Notes, selectedNoteTitle)
+            break
+        case 'closed':
+            deleteADraggedNote(closed_Notes, selectedNoteTitle)
+            break
+    }
+    render()
+}
+
+const dragANote = (event) => {
+    const selectedNoteTitle = event.target.firstElementChild.innerText
+    const listName = event.target.dataset.list
+
+    toDoList.ondrop = () => dropANote(toDo_Notes, selectedNoteTitle, listName)
+    inProgressList.ondrop = () => dropANote(inProgress_Notes, selectedNoteTitle, listName)
+    closedList.ondrop = () => dropANote(closed_Notes, selectedNoteTitle, listName)
+}
+
+// Drag notes functions ends
+
+
 // Creating notes functions starts
-const makeANote = (note, index, notesList) => {
-    notesList.insertAdjacentHTML('afterbegin', `<li class="list__element">
-    <span class="list__text">${note}</span>
+const makeANote = (noteTitle, index, notesList, listName) => {
+    notesList.insertAdjacentHTML('afterbegin', `<li class="list__element" draggable="true" data-list="${listName}">
+    <span class="list__text">${noteTitle}</span>
     <div class="list__buttons">
-        <button class="list__button__delete" id="list__button__delete" data-index="${index}" data-type="">&times</button>                            
+        <button class="list__button__delete" id="list__button__delete" data-index="${index}">&times</button>                            
     </div>
 </li>`)
+    const notes = document.querySelectorAll(".list__element")
+    notes.forEach(note => {
+        note.addEventListener("dragstart", (event) => {
+            dragANote(event, index)
+        })
+    })
 }
 
 const updateList = (notesArray, notesList, countElement) => {
@@ -44,21 +104,22 @@ const updateList = (notesArray, notesList, countElement) => {
 }
 
 const render = () => {
-    updateList(toDoNotes, toDoList, toDoTask_countElement)
-    for (let i = 0; i < toDoNotes.length; i++) {
-        makeANote(toDoNotes[i], i, toDoList)
+    updateList(toDo_Notes, toDoList, toDoTask_countElement)
+    for (let i = 0; i < toDo_Notes.length; i++) {
+        makeANote(toDo_Notes[i], i, toDoList, 'todo')
     }
-    updateList(inProgressNotes, inProgressList, inProgressTask_countElement)
-    for(let i = 0; i < inProgressNotes.length; i++){
-        makeANote(inProgressNotes[i], i, inProgressList)
+    updateList(inProgress_Notes, inProgressList, inProgressTask_countElement)
+    for(let i = 0; i < inProgress_Notes.length; i++){
+        makeANote(inProgress_Notes[i], i, inProgressList, 'inprog')
     }
-    updateList(closedNotes, closedList, closedTask_countElement)
-    for(let i = 0; i < closedNotes.length; i++){
-        makeANote(closedNotes[i], i, closedList)
+    updateList(closed_Notes, closedList, closedTask_countElement)
+    for(let i = 0; i < closed_Notes.length; i++){
+        makeANote(closed_Notes[i], i, closedList, 'closed')
     }
 }
 
 // Creating notes functions ends
+
 
 // Deleting notes functions starts
 const deleteANote = (event, notesArray) => {
@@ -69,9 +130,9 @@ const deleteANote = (event, notesArray) => {
     }
 }
 
-toDoList.onclick = (event) => deleteANote(event, toDoNotes)
-inProgressList.onclick = (event) => deleteANote(event, inProgressNotes)
-closedList.onclick = (event) => deleteANote(event, closedNotes) 
+toDoList.onclick = (event) => deleteANote(event, toDo_Notes)
+inProgressList.onclick = (event) => deleteANote(event, inProgress_Notes)
+closedList.onclick = (event) => deleteANote(event, closed_Notes) 
 
 // Deleting notes function ends
 // Functions ends

@@ -391,6 +391,7 @@ body{
     justify-content: center;
     align-content: center;
     margin-top: 15%;
+    min-height: 73.54px;
 }
 
 .list__element{
