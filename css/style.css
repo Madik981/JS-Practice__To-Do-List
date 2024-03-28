@@ -287,7 +287,7 @@ body{
 }
 
 .input{
-    border: #708090 solid 1.6px;
+    border: #708090 solid 2px;
     background-color: #f5f5f5;
     border-radius: 6px;
     height: 40px;
@@ -299,7 +299,7 @@ body{
 }
 
 .submit{
-    border: transparent;
+    border: transparent solid 1px;
     background-color: #00dfdf;
     border-radius: 6px;
     width: 150px;
@@ -308,10 +308,18 @@ body{
     font-weight: 400;
     font-style: inherit;
     font-size: 17px;
+    cursor: pointer;
+    transition: all 150ms ease-in-out;
 }
 
 .submit:active, .list__button__delete:active{
     opacity: 70%;
+}
+
+.submit:hover{
+    color: black;
+    background-color: #f5f5f5;
+    border: #111 solid 1px;
 }
 
 /* Header styles ends */
@@ -425,6 +433,13 @@ body{
     height: 15px;
     border: #708090 solid 1px;
     border-radius: 1000px;
+    cursor: pointer;
+    transition: all 150ms ease-in-out;
+}
+
+.list__button__delete:hover{
+    background-color: #f5f5f5;
+    border: #111 solid 1px;
 }
 
 /* List styles ends */
